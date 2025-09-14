@@ -7,8 +7,8 @@ namespace Asteroids
     public class AsteroidSpawner : MonoBehaviour
     {
         [SerializeField] private float _spawnInterval = 2f;
-        [SerializeField] private float _minSpeed = 20f;
-        [SerializeField] private float _maxSpeed = 50f;
+        [SerializeField] private float _minSpeed = 10f;
+        [SerializeField] private float _maxSpeed = 20f;
         [SerializeField] private int _maxActiveAsteroids = 10; // лимит активных астероидов
 
         private AsteroidFactory _factory;

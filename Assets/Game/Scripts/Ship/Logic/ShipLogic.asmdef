@@ -1,7 +1,10 @@
 {
-    "name": "Body",
+    "name": "ShipModel",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:4563b7e880ec08940b332e5e1417a1da",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

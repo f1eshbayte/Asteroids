@@ -5,14 +5,16 @@ namespace Asteroids
 {
     public class AsteroidInstaller : MonoInstaller
     {
-        [SerializeField] private AsteroidView _asteroidPrefab;
-        [SerializeField] private int _poolSize = 10;
+        [SerializeField] private AsteroidPresentation _asteroidPrefab;
+        [SerializeField] private AsteroidPresentation _bigAsteroidPrefab;
+        [SerializeField] private AsteroidPresentation _smallAsteroidPrefab;
+        [SerializeField] private int _poolSize;
         [SerializeField] private AsteroidSpawner _spawnerPrefab;
 
         public override void InstallBindings()
         {
             Container.Bind<AsteroidPool>().AsSingle()
-                .WithArguments(_asteroidPrefab, _poolSize);
+                .WithArguments(_asteroidPrefab, _bigAsteroidPrefab, _smallAsteroidPrefab, _poolSize);
 
             Container.Bind<AsteroidFactory>().AsSingle();
 

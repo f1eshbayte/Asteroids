@@ -161,3 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef641afdaf447bdb74ecb8f96a0550c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _mass: 1
+  _isShared: 1
+  _minCountAsteroidSpawn: 2
+  _maxCountAsteroidSpawn: 4
+  _type: 1

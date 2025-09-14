@@ -1,8 +1,11 @@
 {
-    "name": "ShipModel",
+    "name": "GameLogic",
     "rootNamespace": "",
     "references": [
-        "GUID:4563b7e880ec08940b332e5e1417a1da"
+        "GUID:11aca8e6d9c5cbf46b373958d2446743",
+        "GUID:158fcc46acb880d408b01ddd5f3fd087",
+        "GUID:4563b7e880ec08940b332e5e1417a1da",
+        "GUID:d3d498e80f3360f43b2cbc6aad53ecec"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

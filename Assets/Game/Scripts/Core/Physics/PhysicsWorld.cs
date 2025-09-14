@@ -7,7 +7,7 @@ namespace Asteroids
     public class PhysicsWorld : ITickable, IFixedTickable
     {
         private readonly List<Body2D> _bodies = new();
-        private readonly List<PhysicsView> _views = new();
+        private readonly List<PhysicsVisual> _physicsVisuals = new();
 
         // публичные настройки карты (можно менять в инспекторе через Installer)
         public float Width { get; private set; } = 1000f;
@@ -23,10 +23,24 @@ namespace Asteroids
             Height = height;
         }
 
-        public void Register(PhysicsView view)
+        public void Register(PhysicsVisual visual)
         {
-            _views.Add(view);
-            _bodies.Add(view.Body);
+            // Проверяем, не зарегистрирован ли уже объект
+            if (!_physicsVisuals.Contains(visual))
+            {
+                _physicsVisuals.Add(visual);
+                if (visual.Body != null && !_bodies.Contains(visual.Body))
+                {
+                    _bodies.Add(visual.Body);
+                }
+            }
+        }
+
+        public void Unregister(PhysicsVisual visual)
+        {
+            _physicsVisuals.Remove(visual);
+            if (visual.Body != null)
+                _bodies.Remove(visual.Body);
         }
 
         public void FixedTick()
@@ -55,9 +69,9 @@ namespace Asteroids
 
         public void Tick()
         {
-            foreach (var view in _views)
+            foreach (var visual in _physicsVisuals)
             {
-                view.SyncTransform();
+                visual.SyncTransform();
             }
         }
     }
