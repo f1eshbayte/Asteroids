@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03711d9470d46154cb4e3ed0b81ec2f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minInterval: 15
-  _maxInterval: 30
+  _minInterval: 5
+  _maxInterval: 15
   _maxActiveUfos: 1
-  _ufoSpeed: 4
+  _ufoSpeed: 2

@@ -47,4 +47,4 @@ MonoBehaviour:
   _spawnInterval: 2
   _minSpeed: 2
   _maxSpeed: 3
-  _maxActiveAsteroids: 10
+  _maxActiveAsteroids: 0

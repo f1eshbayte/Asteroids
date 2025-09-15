@@ -9,7 +9,7 @@ namespace Asteroids
         [SerializeField] private float _minInterval = 15f;
         [SerializeField] private float _maxInterval = 30f;
         [SerializeField] private int _maxActiveUfos = 1;
-        [SerializeField] private float _ufoSpeed = 8f;
+        [SerializeField] private float _ufoSpeed = 12f;
 
         private UfoFactory _factory;
         private UfoPool _pool;
