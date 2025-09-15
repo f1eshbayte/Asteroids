@@ -15,7 +15,7 @@ namespace Asteroids
         [SerializeField] private AsteroidType _type;
 
         private PhysicsWorld _world;
-        public Asteroid Asteroid { get; private set; }
+        public Asteroid AsteroidBody { get; private set; }
         public AsteroidType Type => _type;
 
         [Inject]
@@ -27,7 +27,7 @@ namespace Asteroids
         private void Update()
         {
             // Проверяем, что астероид активен и зарегистрирован в физическом мире
-            if (Asteroid == null || _world == null || !gameObject.activeSelf)
+            if (AsteroidBody == null || _world == null || !gameObject.activeSelf)
                 return;
                 
             // Убираем дублирующий wrap-around, так как он уже происходит в PhysicsWorld.FixedTick()
@@ -36,7 +36,7 @@ namespace Asteroids
 
         public void Split(AsteroidFactory factory, AsteroidPool pool)
         {
-            if (_isShared && Asteroid != null)
+            if (_isShared && AsteroidBody != null)
             {
                 // Определяем тип новых астероидов в зависимости от текущего типа
                 var newType = GetAsteroidType();
@@ -50,8 +50,8 @@ namespace Asteroids
 
                 // Создаем новые астероиды перед деактивацией текущего
                 int count = Random.Range(_minCountAsteroidSpawn, _maxCountAsteroidSpawn + 1);
-                float newSpeed = Asteroid.Speed * 1.5f;
-                Vector2 position = Asteroid.Position;
+                float newSpeed = AsteroidBody.Speed * 1.5f;
+                Vector2 position = AsteroidBody.Position;
 
                 for (int i = 0; i < count; i++)
                 {
@@ -80,12 +80,12 @@ namespace Asteroids
 
         public void Activate(Vector2 position, float speed)
         {
-            if (Asteroid == null)
-                Asteroid = new Asteroid(position, _mass, speed);
+            if (AsteroidBody == null)
+                AsteroidBody = new Asteroid(position, _mass, speed);
             else
-                Asteroid.Reset(position, speed);
+                AsteroidBody.Reset(position, speed);
 
-            Init(Asteroid);
+            Init(AsteroidBody);
             _world.Register(this); // Register проверяет дубликаты
             gameObject.SetActive(true);
         }
@@ -96,7 +96,7 @@ namespace Asteroids
                 _world.Unregister(this);
             
             // Очищаем состояние астероида
-            Asteroid = null;
+            AsteroidBody = null;
             gameObject.SetActive(false);
         }
     }

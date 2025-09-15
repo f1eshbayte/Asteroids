@@ -49,7 +49,7 @@ namespace Asteroids
             ExpirationTime(godDuratioin).Forget();
         }
 
-        private async UniTaskVoid ExpirationTime(float duration)
+        private async UniTask ExpirationTime(float duration)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(duration));
 

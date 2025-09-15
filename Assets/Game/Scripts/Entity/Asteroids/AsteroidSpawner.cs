@@ -26,7 +26,7 @@ namespace Asteroids
             SpawnLoop().Forget();
         }
 
-        private async UniTaskVoid SpawnLoop()
+        private async UniTask SpawnLoop()
         {
             while (true)
             {

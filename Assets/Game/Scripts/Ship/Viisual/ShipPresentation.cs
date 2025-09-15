@@ -9,15 +9,16 @@ namespace Asteroids
     {
         [SerializeField] private int _freezeTime = 2;
         [SerializeField] private float _godDuration = 2;
-        public Ship Ship { get; private set; }
+        public Ship ShipBody { get; private set; }
         public bool IsDie { get; private set; }
 
-        public event Action<Ship, AsteroidPresentation> OnShipCollided;
+        // public event Action<Ship, AsteroidPresentation> OnShipCollided;
+        public event Action<Ship, PhysicsVisual> OnShipCollided;
 
         [Inject]
         public void Construct(Ship ship, PhysicsWorld world)
         {
-            Ship = ship;
+            ShipBody = ship;
             Init(ship);
             world.Register(this);
         }
@@ -30,34 +31,43 @@ namespace Asteroids
             float deltaTime = Time.deltaTime;
 
             float rotateInput = Input.GetAxis("Horizontal");
-            Ship.Rotate(rotateInput, deltaTime);
+            ShipBody.Rotate(rotateInput, deltaTime);
 
             float thrustInput = Mathf.Max(0, Input.GetAxis("Vertical"));
-            Ship.Thrust(thrustInput, deltaTime);
+            ShipBody.Thrust(thrustInput, deltaTime);
 
-            Ship.ApplyDrag(deltaTime);
+            ShipBody.ApplyDrag(deltaTime);
+            ShipBody.Position = transform.position;
         }
 
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (ShipBody.IsGod)
+                return;
+
             if (other.TryGetComponent(out AsteroidPresentation asteroid))
             {
-                if (Ship.IsGod)
-                    return;
-                OnShipCollided?.Invoke(Ship, asteroid);
+                OnShipCollided?.Invoke(ShipBody, asteroid);
+                FreezeInput(_freezeTime).Forget();
+                Debug.Log("Ship collision detected!");
+            }
+
+            if (other.TryGetComponent(out UfoPresentation ufo))
+            {
+                OnShipCollided?.Invoke(ShipBody, ufo);
                 FreezeInput(_freezeTime).Forget();
                 Debug.Log("Ship collision detected!");
             }
         }
 
-        private async UniTaskVoid FreezeInput(int duration)
+        private async UniTask FreezeInput(int duration)
         {
             IsDie = true;
             await UniTask.Delay(TimeSpan.FromSeconds(duration));
 
             IsDie = false;
-            Ship.Respawn(Vector2.zero, 3f);
+            ShipBody.Respawn(Vector2.zero, _godDuration);
         }
     }
 }

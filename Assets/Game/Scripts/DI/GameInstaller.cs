@@ -31,8 +31,6 @@ namespace Asteroids
                 .AsSingle()
                 .NonLazy();
 
-            // GameController
-            // Container.Bind<GameController>().AsSingle().NonLazy();
         }
 
     }

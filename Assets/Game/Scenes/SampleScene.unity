@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 1667610598}
   - component: {fileID: 1667610600}
   - component: {fileID: 1667610601}
+  - component: {fileID: 1667610602}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -339,7 +340,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1667610600}
-  - {fileID: 1667610601}
+  - {fileID: 1667610602}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -408,6 +409,21 @@ MonoBehaviour:
   _smallAsteroidPrefab: {fileID: 8364599156332947821, guid: 8d7139e03fa01a1499cb197b739c6d67, type: 3}
   _poolSize: 5
   _spawnerPrefab: {fileID: 86057872305078942, guid: 0f8b379d5e321cc45925a120972cb8ef, type: 3}
+--- !u!114 &1667610602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667610597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4d7cce6113f42a98391c08638d23913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ufoPrefab: {fileID: 4578731989805678196, guid: 55a291ef25251c843a5f5878e39d4cf0, type: 3}
+  _ufoSpawner: {fileID: 4260355164619668589, guid: a171fc8416aeea64dad7641ee25a2a16, type: 3}
+  _poolSize: 10
 --- !u!1 &1868758777
 GameObject:
   m_ObjectHideFlags: 0
