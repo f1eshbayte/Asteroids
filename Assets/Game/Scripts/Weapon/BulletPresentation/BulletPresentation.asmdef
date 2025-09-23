@@ -1,0 +1,23 @@
+{
+    "name": "BulletPresentation",
+    "rootNamespace": "",
+    "references": [
+        "GUID:158fcc46acb880d408b01ddd5f3fd087",
+        "GUID:db0d15ff2ef58514a9daf4c8b3046776",
+        "GUID:4563b7e880ec08940b332e5e1417a1da",
+        "GUID:121f6811923652645be0e0283169a967",
+        "GUID:11aca8e6d9c5cbf46b373958d2446743",
+        "GUID:b08dce63b4bc9c943ad4f624080097b6",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:3cb6843365603ba4694943bb1a99cfa8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

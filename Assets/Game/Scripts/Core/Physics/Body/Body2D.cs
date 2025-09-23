@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Body2D
+public class Body2D 
 {
     public Vector2 Position;
     public Vector2 Velocity;

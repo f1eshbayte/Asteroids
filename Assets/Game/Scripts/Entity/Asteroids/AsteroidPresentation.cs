@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -8,27 +7,26 @@ namespace Asteroids
     [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
     public class AsteroidPresentation : PhysicsVisual
     {
-        [SerializeField] private float _mass = 1;
         [SerializeField] private bool _isShared;
-        [SerializeField] private int _minCountAsteroidSpawn = 2;
-        [SerializeField] private int _maxCountAsteroidSpawn = 4;
-        [SerializeField] private AsteroidType _type;
-
+        [SerializeField] private AsteroidType _asteroidType;
+        [SerializeField] private EnemyType _enemyType;
+        private AsteroidsConfig _config;
         private PhysicsWorld _world;
         public Asteroid AsteroidBody { get; private set; }
-        public AsteroidType Type => _type;
+        public AsteroidType AsteroidType => _asteroidType;
 
         [Inject]
-        public void Construct(PhysicsWorld world)
+        public void Construct(PhysicsWorld world, AsteroidsConfig config)
         {
             _world = world;
+            _config = config;
         }
         
         private void Update()
         {
             // Проверяем, что астероид активен и зарегистрирован в физическом мире
-            if (AsteroidBody == null || _world == null || !gameObject.activeSelf)
-                return;
+            // if (AsteroidBody == null || _world == null || !gameObject.activeSelf)
+            //     return;
                 
             // Убираем дублирующий wrap-around, так как он уже происходит в PhysicsWorld.FixedTick()
             // Здесь только синхронизируем визуальное представление
@@ -38,18 +36,16 @@ namespace Asteroids
         {
             if (_isShared && AsteroidBody != null)
             {
-                // Определяем тип новых астероидов в зависимости от текущего типа
                 var newType = GetAsteroidType();
 
-                // Маленькие астероиды просто умирают (не разламываются)
-                if (_type == AsteroidType.Small)
+                if (_asteroidType == AsteroidType.Small)
                 {
                     pool.Release(this);
                     return;
                 }
 
                 // Создаем новые астероиды перед деактивацией текущего
-                int count = Random.Range(_minCountAsteroidSpawn, _maxCountAsteroidSpawn + 1);
+                int count = Random.Range(_config.minCountAsteroidSpawn, _config.maxCountAsteroidSpawn + 1);
                 float newSpeed = AsteroidBody.Speed * 1.5f;
                 Vector2 position = AsteroidBody.Position;
 
@@ -68,7 +64,7 @@ namespace Asteroids
 
         private AsteroidType GetAsteroidType()
         {
-            AsteroidType newType = _type switch
+            AsteroidType newType = _asteroidType switch
             {
                 AsteroidType.Large => AsteroidType.Medium,
                 AsteroidType.Medium => AsteroidType.Small,
@@ -81,11 +77,11 @@ namespace Asteroids
         public void Activate(Vector2 position, float speed)
         {
             if (AsteroidBody == null)
-                AsteroidBody = new Asteroid(position, _mass, speed);
+                AsteroidBody = new Asteroid(position, _config.mass, speed);
             else
                 AsteroidBody.Reset(position, speed);
 
-            Init(AsteroidBody);
+            Init(AsteroidBody, _enemyType);
             _world.Register(this); // Register проверяет дубликаты
             gameObject.SetActive(true);
         }

@@ -6,13 +6,12 @@ namespace Asteroids
 {
     public class Ship : Body2D
     {
-        public float Rotation { get; private set; } // угол в градусах
+        public float Rotation { get; private set; } 
         public float AccelerationPower { get; private set; }
         public float RotationSpeed { get; private set; }
-        public float Drag { get; private set; } // сопротивление (трение космоса)
-
+        public float Drag { get; private set; } 
         public bool IsGod { get; private set; } = false;
-
+        
         public Ship(Vector2 position, float mass, float accelerationPower, float rotationSpeed, float drag) : base(
             position, mass)
         {
@@ -29,7 +28,6 @@ namespace Asteroids
 
         public void Thrust(float input, float deltaTime)
         {
-            // переводим угол в вектор направления
             Vector2 dir = new Vector2(Mathf.Cos(Rotation * Mathf.Deg2Rad), Mathf.Sin(Rotation * Mathf.Deg2Rad));
 
             Velocity += dir * (input * AccelerationPower * deltaTime);
@@ -45,7 +43,6 @@ namespace Asteroids
             Position = position;
             Velocity = Vector2.zero;
             IsGod = true;
-            Debug.Log($"Respawn isgod{IsGod}");
             ExpirationTime(godDuratioin).Forget();
         }
 
@@ -55,7 +52,5 @@ namespace Asteroids
 
             IsGod = false;
         }
-        
-        
     }
 }

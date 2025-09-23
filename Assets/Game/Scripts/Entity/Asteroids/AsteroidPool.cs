@@ -59,7 +59,7 @@ namespace Asteroids
             // ищем свободный объект нужного типа
             foreach (var asteroid in _pool)
             {
-                if (!asteroid.gameObject.activeSelf && asteroid.Type == type)
+                if (!asteroid.gameObject.activeSelf && asteroid.AsteroidType == type)
                 {
                     asteroid.Activate(position, speed);
                     return asteroid;
@@ -82,8 +82,6 @@ namespace Asteroids
             newAsteroid.Activate(position, speed);
             return newAsteroid;
         }
-
-
 
         public void Release(AsteroidPresentation asteroid)
         {

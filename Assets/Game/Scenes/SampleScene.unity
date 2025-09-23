@@ -315,9 +315,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1667610599}
   - component: {fileID: 1667610598}
+  - component: {fileID: 1667610606}
   - component: {fileID: 1667610600}
   - component: {fileID: 1667610601}
   - component: {fileID: 1667610602}
+  - component: {fileID: 1667610603}
+  - component: {fileID: 1667610604}
+  - component: {fileID: 1667610605}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -339,8 +343,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 1908846275}
   - {fileID: 1667610600}
   - {fileID: 1667610602}
+  - {fileID: 1667610601}
+  - {fileID: 1667610603}
+  - {fileID: 1667610604}
+  - {fileID: 1667610605}
+  - {fileID: 1667610606}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -385,13 +395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6cd2ca71f70784d99b2275ae53696a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shipPrefab: {fileID: 108890148321740240, guid: 897941b49898c4b4f967f717a3bc4a30, type: 3}
-  _worldWidth: 10
-  _worldHeight: 10
-  _mass: 1
-  _accelerationPower: 7
-  _rotationSpeed: 180
-  _drag: 0.5
 --- !u!114 &1667610601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,7 +410,7 @@ MonoBehaviour:
   _asteroidPrefab: {fileID: 8078380719484661966, guid: 94f47900142d5d14897d2df12d58d6cd, type: 3}
   _bigAsteroidPrefab: {fileID: 1522257041221710664, guid: 6786cf0a4200569438755cbde4f4fef4, type: 3}
   _smallAsteroidPrefab: {fileID: 8364599156332947821, guid: 8d7139e03fa01a1499cb197b739c6d67, type: 3}
-  _poolSize: 5
+  _poolSize: 10
   _spawnerPrefab: {fileID: 86057872305078942, guid: 0f8b379d5e321cc45925a120972cb8ef, type: 3}
 --- !u!114 &1667610602
 MonoBehaviour:
@@ -423,7 +426,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ufoPrefab: {fileID: 4578731989805678196, guid: 55a291ef25251c843a5f5878e39d4cf0, type: 3}
   _ufoSpawner: {fileID: 4260355164619668589, guid: a171fc8416aeea64dad7641ee25a2a16, type: 3}
-  _poolSize: 10
+  _poolSize: 5
+--- !u!114 &1667610603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667610597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c1a8c53fa073324ba7df2a818fc4ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPrefab: {fileID: 6518059528291696710, guid: 4010d690caee6654d8518d790162f2fa, type: 3}
+  _poolSize: 20
+--- !u!114 &1667610604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667610597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64363e8645ab3c4fa88424c8df13008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _laserPrefab: {fileID: 1738111427704901558, guid: 1d3afb250c0427e44b295747a08de9bc, type: 3}
+  _poolSize: 1
+--- !u!114 &1667610605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667610597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a3743924cb0dd546980673e3e6508f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitEffect: {fileID: 6247028769526726400, guid: c526183a5f9d2f34a9f6d664d29926f7, type: 3}
+  _poolSize: 15
+--- !u!114 &1667610606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667610597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3603093d0422444a05ac5aef6a81d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shipPrefab: {fileID: 108890148321740240, guid: 897941b49898c4b4f967f717a3bc4a30, type: 3}
 --- !u!1 &1868758777
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,6 +526,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1908846274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1908846276}
+  - component: {fileID: 1908846275}
+  m_Layer: 0
+  m_Name: ConfigsInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1908846275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908846274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b99bee570958e499508de9b102990e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shipFile: ship.json
+  _asteroidsFile: asteroids.json
+  _ufoFile: ufo.json
+  _worldMapFile: worldMap.json
+--- !u!4 &1908846276
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908846274}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0544825, y: -0.9739569, z: 7.948174}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -476,3 +582,4 @@ SceneRoots:
   - {fileID: 49037262}
   - {fileID: 1667610599}
   - {fileID: 1868758779}
+  - {fileID: 1908846276}

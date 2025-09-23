@@ -161,6 +161,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7386eedf221bec046a70a5629b3f5106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mass: 1
-  _steerStrength: 3
-  _maxChaseDistance: 8
+  _type: 2

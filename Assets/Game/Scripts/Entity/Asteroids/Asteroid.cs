@@ -1,28 +1,30 @@
 using UnityEngine;
 
-public class Asteroid : Body2D
+namespace Asteroids
 {
-    public float Speed;
-
-    public Asteroid(Vector2 position, float mass = 1f, float speed = 5f)
-        : base(position, mass)
+    public class Asteroid : Body2D
     {
-        Speed = speed;
-        SetRandomVelocity();
-    }
+        public float Speed;
 
-    public void Reset(Vector2 position, float speed)
-    {
-        Position = position;
-        Speed = speed;
-        SetRandomVelocity();
-    }
-    
+        public Asteroid(Vector2 position, float mass = 1f, float speed = 5f)
+            : base(position, mass)
+        {
+            Speed = speed;
+            SetRandomVelocity();
+        }
 
-    private void SetRandomVelocity()
-    {
-        float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
-        Velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * Speed;
-    }
+        public void Reset(Vector2 position, float speed)
+        {
+            Position = position;
+            Speed = speed;
+            SetRandomVelocity();
+        }
 
+
+        private void SetRandomVelocity()
+        {
+            float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
+            Velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * Speed;
+        }
+    }
 }

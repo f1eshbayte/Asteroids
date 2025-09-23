@@ -4,6 +4,9 @@ public static class PhysicsEngine
 {
     public static void ResolveCollision(Body2D a, Body2D b)
     {
+        if (a == null || b == null) 
+            return;
+        
         Vector2 normal = (b.Position - a.Position).normalized;
         ResolveCollision(a, b, normal);
     }

@@ -20,7 +20,6 @@ namespace Asteroids
 
         private void SetInitialVelocity()
         {
-            // UFO starts with zero velocity and will be controlled by pursuit logic
             Velocity = Vector2.zero;
         }
         

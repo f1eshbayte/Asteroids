@@ -1,0 +1,23 @@
+{
+    "name": "Weapon",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f1a1839f88712b846a3536202e6dede9",
+        "GUID:6fb89b508729bd94fb170662903e931f",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:158fcc46acb880d408b01ddd5f3fd087",
+        "GUID:4563b7e880ec08940b332e5e1417a1da",
+        "GUID:45642533099dac241a5984b1fabd6b42",
+        "GUID:b681c25dad45a934aaae6a912c8b7e49",
+        "GUID:2844ed9d6dc5b5f42bc8058797fc357b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

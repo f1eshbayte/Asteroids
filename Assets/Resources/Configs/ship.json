@@ -1,0 +1,13 @@
+{
+   "maxHealth": 3, 
+   "freezeTime": 2,
+   "godDuration": 2,
+   "mass": 1,
+   "accelerationPower": 7,
+   "rotationSpeed": 180,
+   "drag": 0.5,
+   "bulletSpeed": 15,
+   "maxLaserShots": 3,
+   "laserLifetime": 0.6,
+   "laserRechargeTime": 5
+}

@@ -11,7 +11,6 @@ namespace Asteroids
         
         public override void InstallBindings()
         {
-
             Container.Bind<UfoPool>().AsSingle()
                 .WithArguments(_ufoPrefab, _poolSize);
 

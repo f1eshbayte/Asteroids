@@ -1,0 +1,5 @@
+{
+  "mass": 1,
+  "minCountAsteroidSpawn": 2, 
+  "maxCountAsteroidSpawn": 4
+}
