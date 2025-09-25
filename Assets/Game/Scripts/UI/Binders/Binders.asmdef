@@ -1,12 +1,12 @@
 {
-    "name": "Views",
+    "name": "Binders",
     "rootNamespace": "",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:d9b374b0d931455cb6ede9abbd8750f6",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:560b04d1a97f54a4e82edc0cbbb69285",
-        "GUID:0506e4b85a6234547a9ac9110e476086",
-        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:3508b719243e8ae4cb04ef398e83a04c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

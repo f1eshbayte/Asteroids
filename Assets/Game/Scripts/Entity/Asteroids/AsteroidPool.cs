@@ -13,7 +13,6 @@ namespace Asteroids
         private readonly AsteroidPresentation _prefabSmallAsteroid;
         private readonly DiContainer _container;
         private readonly PhysicsWorld _world;
-        // public int ActiveCount => _pool.Count(a => a.gameObject.activeSelf);
         public int ActiveCount => _pool.Count(a => a != null && a.gameObject.activeSelf);
 
         public AsteroidPool(AsteroidPresentation prefabAsteroid, AsteroidPresentation prefabBigAsteroid, AsteroidPresentation prefabSmallAsteroid,
@@ -57,7 +56,6 @@ namespace Asteroids
         
         public AsteroidPresentation Get(Vector2 position, float speed, AsteroidType type)
         {
-            // ищем свободный объект нужного типа
             foreach (var asteroid in _pool)
             {
                 if (!asteroid.gameObject.activeSelf && asteroid.AsteroidType == type)
@@ -67,7 +65,6 @@ namespace Asteroids
                 }
             }
 
-            // если все заняты → создаём новый
             AsteroidPresentation prefab = type switch
             {
                 AsteroidType.Small => _prefabSmallAsteroid,

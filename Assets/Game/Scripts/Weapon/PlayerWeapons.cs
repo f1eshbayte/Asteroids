@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -12,16 +13,21 @@ namespace Asteroids
         private LaserPool _laserPool;
         private ShipPresentation _ship;
         private PhysicsWorld _world;
-        private IShipInput _input;
         private SignalBus _signalBus;
+        private IShipInput _input;
 
-        private int _currentLaserShots;
-        private float _rechargeTimer;
+        public int CurrentLaserShots { get; private set; }
+        public float RechargeTimer { get; private set; }
+
         private bool _isPaused;
-            
+
+        public event Action<int> OnShootLaser;
+        public event Action<float> OnChargeRecovery;
+
         [Inject]
-        public void Construct(BulletPool bulletPool, LaserPool laserPool, 
-            ShipPresentation ship, PhysicsWorld world, ShipConfig config, IShipInput input, SignalBus signalBus)
+        public void Construct(BulletPool bulletPool, LaserPool laserPool,
+            ShipPresentation ship, PhysicsWorld world, ShipConfig config,
+            IShipInput input, SignalBus signalBus)
         {
             _input = input;
             _config = config;
@@ -30,61 +36,38 @@ namespace Asteroids
             _ship = ship;
             _world = world;
             _signalBus = signalBus;
-            
-            _currentLaserShots = _config.maxLaserShots;
+
+            RechargeTimer = _config.laserRechargeTime;
+            CurrentLaserShots = _config.maxLaserShots;
         }
 
         private void OnEnable()
         {
             _signalBus.Subscribe<PauseChangedSignal>(OnPauseChanged);
-            // PauseManager.Register(this);
         }
 
         private void OnDisable()
         {
             _signalBus.Unsubscribe<PauseChangedSignal>(OnPauseChanged);
-            
-            // PauseManager.Unregister(this);
         }
 
-        // private void Update()
-        // {
-        //     if (_ship.IsDie || _isPaused)
-        //         return;
-        //
-        //     if (Input.GetKeyDown(KeyCode.Space))
-        //     {
-        //         FireBullet();
-        //     }
-        //
-        //     if (Input.GetKeyDown(KeyCode.LeftControl) && _currentLaserShots > 0)
-        //     {
-        //         FireLaser();
-        //     }
-        //
-        //     if (_currentLaserShots < _config.maxLaserShots)
-        //     {
-        //         ChargeRecovery();
-        //     }
-        // }
         private void Update()
         {
             if (_ship.IsDie || _isPaused)
                 return;
-        
+
             if (_input.FireBullet)
                 FireBullet();
-        
-            if (_input.FireLaser && _currentLaserShots > 0)
+
+            if (_input.FireLaser && CurrentLaserShots > 0)
                 FireLaser();
-        
-            if (_currentLaserShots < _config.maxLaserShots)
+
+            if (CurrentLaserShots < _config.maxLaserShots)
                 ChargeRecovery();
         }
 
         private void FireBullet()
         {
-            // Vector2 position = _shootPoint.position;
             Vector2 position = _shootPoint.position;
             float rotation = _ship.transform.eulerAngles.z;
             _bulletPool.Get(position, rotation, _config.bulletSpeed);
@@ -92,23 +75,27 @@ namespace Asteroids
 
         private void ChargeRecovery()
         {
-            _rechargeTimer -= Time.deltaTime;
-            if (_rechargeTimer <= 0f)
+            RechargeTimer -= Time.deltaTime;
+
+            if (RechargeTimer <= 0f)
             {
-                _currentLaserShots++;
-                _rechargeTimer = _config.laserRechargeTime;
+                CurrentLaserShots++;
+                OnShootLaser?.Invoke(CurrentLaserShots);
+                RechargeTimer = _config.laserRechargeTime;
             }
+
+            OnChargeRecovery?.Invoke(RechargeTimer);
         }
 
         private void FireLaser()
         {
-            _currentLaserShots--;
-            _rechargeTimer = _config.laserRechargeTime;
+            CurrentLaserShots--;
 
             var laser = _laserPool.Get(_shootPoint.position, _config.laserLifetime);
             laser.transform.SetParent(_ship.transform, false);
             laser.transform.localPosition = _shootPoint.localPosition;
             laser.transform.localRotation = Quaternion.identity;
+            OnShootLaser?.Invoke(CurrentLaserShots);
         }
 
         public void OnPauseChanged(PauseChangedSignal signal)

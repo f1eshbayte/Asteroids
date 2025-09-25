@@ -18,7 +18,6 @@ namespace Asteroids
             float halfW = _world.Width / 2f;
             float halfH = _world.Height / 2f;
 
-            // спавн за пределами карты
             float x = Random.value > 0.5f ? halfW + 10f : -halfW - 10f;
             float y = Random.Range(-halfH, halfH);
 

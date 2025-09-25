@@ -13,7 +13,7 @@ namespace Asteroids
         {
             Container.Bind<Ship>().AsSingle()
                 .WithArguments(
-                    (object)Vector2.zero,               // оборачиваем в object, чтобы Zenject не пытался резолвить
+                    (object)Vector2.zero,               
                     (object)_shipConfig.mass,
                     (object)_shipConfig.accelerationPower,
                     (object)_shipConfig.rotationSpeed,

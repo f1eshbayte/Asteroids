@@ -10,14 +10,12 @@ namespace Asteroids
         private readonly List<PhysicsVisual> _physicsVisuals = new();
         private bool _isPaused;
 
-        // публичные настройки карты (можно менять в инспекторе через Installer)
         public float Width { get; private set; } = 1000f;
         public float Height { get; private set; } = 1000f;
 
         private float HalfWidth => Width / 2f;
         private float HalfHeight => Height / 2f;
 
-        // Метод для установки размеров карты
         public void SetWorldSize(float width, float height)
         {
             Width = width;
@@ -26,7 +24,6 @@ namespace Asteroids
 
         public void Register(PhysicsVisual visual)
         {
-            // Проверяем, не зарегистрирован ли уже объект
             if (!_physicsVisuals.Contains(visual))
             {
                 _physicsVisuals.Add(visual);
@@ -68,8 +65,6 @@ namespace Asteroids
                 else if (body.Position.y < -HalfHeight) 
                     body.Position.y = HalfHeight;
             }
-
-            // TODO: столкновения
         }
 
         public void Tick()

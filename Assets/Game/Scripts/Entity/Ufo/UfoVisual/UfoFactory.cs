@@ -24,10 +24,5 @@ namespace Asteroids
             Vector2 pos = new Vector2(x, y);
             _pool.Get(pos, speed, target);
         }
-
-        public void SpawnAt(Vector2 position, float speed, Ship target)
-        {
-            _pool.Get(position, speed, target);
-        }
     }
 }

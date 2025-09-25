@@ -25,19 +25,11 @@ namespace Asteroids
 
         private bool _isPaused;
 
-        // private void OnEnable()
-        // {
-        //     PauseManager.Register(this);
-        // }
         private void OnEnable()
         {
             _signalBus.Subscribe<PauseChangedSignal>(OnPauseChanged);
         }
 
-        // private void OnDisable()
-        // {
-        //     PauseManager.Unregister(this);
-        // }
         private void OnDisable()
         {
             _signalBus.Unsubscribe<PauseChangedSignal>(OnPauseChanged);
@@ -51,11 +43,9 @@ namespace Asteroids
             Vector2 toTarget = _target.Position - UfoBody.Position;
             float distanceToTarget = toTarget.magnitude;
             
-            // Если корабль слишком далеко, прекращаем преследование
             if (distanceToTarget > _config.maxChaseDistance) 
                 return;
             
-            // Более агрессивное преследование - UFO направляется прямо к цели
             Vector2 desired = toTarget.normalized * UfoBody.Speed;
             
             UfoBody.Velocity = Vector2.MoveTowards(
@@ -69,7 +59,6 @@ namespace Asteroids
         {
             _isPaused = signal.IsPaused;
         }
-
         
         public void Activate(Vector2 position, float speed, Ship target)
         {
@@ -96,7 +85,6 @@ namespace Asteroids
 
         public void OnHit(UfoPool pool)
         {
-            // вызов при попадании снаряда
             pool.Release(this);
         }
     }

@@ -10,7 +10,7 @@ namespace Asteroids
         [SerializeField] private float _spawnInterval = 2f;
         [SerializeField] private float _minSpeed = 10f;
         [SerializeField] private float _maxSpeed = 20f;
-        [SerializeField] private int _maxActiveAsteroids = 10; // лимит активных астероидов
+        [SerializeField] private int _maxActiveAsteroids = 10; 
 
         private AsteroidFactory _factory;
         private AsteroidPool _pool;
@@ -39,25 +39,12 @@ namespace Asteroids
 
         private void OnSceneUnloaded(Scene scene)
         {
-            _pool.Clear(); // при смене сцены сбрасываем ссылки
+            _pool.Clear(); 
         }
 
-        // private async UniTask SpawnLoop()
-        // {
-        //     while (true)
-        //     {
-        //         if (_pool.ActiveCount < _maxActiveAsteroids)
-        //         {
-        //             float speed = Random.Range(_minSpeed, _maxSpeed);
-        //             _factory.SpawnAsteroid(speed);
-        //         }
-        //
-        //         await UniTask.Delay(System.TimeSpan.FromSeconds(_spawnInterval));
-        //     }
-        // }
         private async UniTask SpawnLoop()
         {
-            while (this != null && gameObject != null) // защита от Destroy
+            while (this != null && gameObject != null) 
             {
                 if (_pool != null && _pool.ActiveCount < _maxActiveAsteroids)
                 {
@@ -67,7 +54,6 @@ namespace Asteroids
 
                 await UniTask.Delay(System.TimeSpan.FromSeconds(_spawnInterval));
 
-                // если объект уже уничтожен → выходим
                 if (this == null || gameObject == null) 
                     break;
             }

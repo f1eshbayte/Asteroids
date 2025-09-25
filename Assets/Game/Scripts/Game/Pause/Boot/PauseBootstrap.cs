@@ -21,32 +21,21 @@ namespace Asteroids
         {
             if (_physicsWorld != null)
             {
-                // PauseManager.Register(_physicsWorld);
                 _signalBus.Subscribe<PauseChangedSignal>(OnPauseChanged);
             }
-            // Menu.OnPauseStateChanged += OnPauseChanged;
         }
 
         private void OnDisable()
         {
             if (_physicsWorld != null)
             {
-                // PauseManager.Unregister(_physicsWorld);
                 _signalBus.Unsubscribe<PauseChangedSignal>(OnPauseChanged);
             }
-            // Menu.OnPauseStateChanged -= OnPauseChanged;
         }
 
-        // private void OnPauseChanged(bool isPaused)
-        // {
-        //     if (_tickableManager != null)
-        //     {
-        //         _tickableManager.IsPaused = isPaused;
-        //     }
-        // }
+       
         private void OnPauseChanged(PauseChangedSignal signal)
         {
-            // Например, физический мир реагирует на паузу
             if (_tickableManager != null)
             {
                 _tickableManager.IsPaused = signal.IsPaused;
@@ -54,7 +43,6 @@ namespace Asteroids
 
             if (_physicsWorld != null)
             {
-                // Можно добавить метод Pause/Resume в PhysicsWorld
                 _physicsWorld.OnPauseChanged(signal);
             }
         }

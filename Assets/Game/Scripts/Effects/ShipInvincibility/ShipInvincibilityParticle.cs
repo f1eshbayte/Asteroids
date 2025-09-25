@@ -23,13 +23,11 @@ namespace Asteroids
         private void OnEnable()
         {
             _signalBus.Subscribe<PauseChangedSignal>(OnPauseChanged);
-            // PauseManager.Register(this);
         }
 
         private void OnDisable()
         {
             _signalBus.Unsubscribe<PauseChangedSignal>(OnPauseChanged);
-            // PauseManager.Unregister(this);
         }
 
         private void Awake()

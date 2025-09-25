@@ -20,7 +20,6 @@ namespace Asteroids
             SetRandomVelocity();
         }
 
-
         private void SetRandomVelocity()
         {
             float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
