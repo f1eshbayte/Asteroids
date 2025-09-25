@@ -9,12 +9,10 @@ namespace Asteroids
     {
         private readonly List<LaserPresentation> _pool = new();
         private readonly LaserFactory _factory;
-        private readonly PhysicsWorld _world;
 
-        public LaserPool(LaserFactory factory, int initialSize, PhysicsWorld world)
+        public LaserPool(LaserFactory factory, int initialSize)
         {
             _factory = factory;
-            _world = world;
 
             for (int i = 0; i < initialSize; i++)
             {

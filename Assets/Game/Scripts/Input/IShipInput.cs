@@ -12,8 +12,11 @@ namespace Asteroids
 
     public class DesktopShipInput : IShipInput
     {
-        public float Rotation => Input.GetAxis("Horizontal");
-        public float Thrust => Mathf.Max(0, Input.GetAxis("Vertical"));
+        private const string Horizontal = "Horizontal";
+        private const string Vertical = "Vertical";
+        
+        public float Rotation => Input.GetAxis(Horizontal);
+        public float Thrust => Mathf.Max(0, Input.GetAxis(Vertical));
         public bool FireBullet => Input.GetKeyDown(KeyCode.Space);
         public bool FireLaser => Input.GetKeyDown(KeyCode.LeftControl);
     }

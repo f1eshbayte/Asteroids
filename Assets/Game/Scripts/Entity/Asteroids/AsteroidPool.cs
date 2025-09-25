@@ -12,17 +12,15 @@ namespace Asteroids
         private readonly AsteroidPresentation _prefabBigAsteroid;
         private readonly AsteroidPresentation _prefabSmallAsteroid;
         private readonly DiContainer _container;
-        private readonly PhysicsWorld _world;
         public int ActiveCount => _pool.Count(a => a != null && a.gameObject.activeSelf);
 
         public AsteroidPool(AsteroidPresentation prefabAsteroid, AsteroidPresentation prefabBigAsteroid, AsteroidPresentation prefabSmallAsteroid,
-            int initialSize, DiContainer container, PhysicsWorld world)
+            int initialSize, DiContainer container)
         {
             _prefabAsteroid = prefabAsteroid;
             _prefabBigAsteroid = prefabBigAsteroid;
             _prefabSmallAsteroid = prefabSmallAsteroid;
             _container = container;
-            _world = world;
 
             for (int i = 0; i < initialSize; i++)
             {

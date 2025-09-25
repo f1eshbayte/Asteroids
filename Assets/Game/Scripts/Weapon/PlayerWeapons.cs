@@ -12,7 +12,6 @@ namespace Asteroids
         private BulletPool _bulletPool;
         private LaserPool _laserPool;
         private ShipPresentation _ship;
-        private PhysicsWorld _world;
         private SignalBus _signalBus;
         private IShipInput _input;
 
@@ -26,7 +25,7 @@ namespace Asteroids
 
         [Inject]
         public void Construct(BulletPool bulletPool, LaserPool laserPool,
-            ShipPresentation ship, PhysicsWorld world, ShipConfig config,
+            ShipPresentation ship, ShipConfig config,
             IShipInput input, SignalBus signalBus)
         {
             _input = input;
@@ -34,7 +33,6 @@ namespace Asteroids
             _bulletPool = bulletPool;
             _laserPool = laserPool;
             _ship = ship;
-            _world = world;
             _signalBus = signalBus;
 
             RechargeTimer = _config.laserRechargeTime;

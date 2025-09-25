@@ -12,14 +12,12 @@ namespace Asteroids
         private readonly List<ParticleSystem> _pool = new();
         private readonly ParticleHitEffectFactory _factory;
 
-        private SignalBus _signalBus;
         
         private bool _isPaused;
         
-        public ParticleHitEffectPool(ParticleHitEffectFactory factory, int initialSize, SignalBus signalBus)
+        public ParticleHitEffectPool(ParticleHitEffectFactory factory, int initialSize)
         {
             _factory = factory;
-            _signalBus = signalBus;
 
             for (int i = 0; i < initialSize; i++)
             {
@@ -58,7 +56,6 @@ namespace Asteroids
                 effect.Stop();
                 effect.gameObject.SetActive(false);
             }
-            
         }
 
         public void OnPauseChanged(PauseChangedSignal signal)

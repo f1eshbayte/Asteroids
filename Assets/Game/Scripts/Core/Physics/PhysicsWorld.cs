@@ -53,13 +53,11 @@ namespace Asteroids
             {
                 body.Integrate(fixedDeltaTime);
 
-                // wrap-around по X
                 if (body.Position.x > HalfWidth) 
                     body.Position.x = -HalfWidth;
                 else if (body.Position.x < -HalfWidth) 
                     body.Position.x = HalfWidth;
 
-                // wrap-around по Y
                 if (body.Position.y > HalfHeight) 
                     body.Position.y = -HalfHeight;
                 else if (body.Position.y < -HalfHeight) 

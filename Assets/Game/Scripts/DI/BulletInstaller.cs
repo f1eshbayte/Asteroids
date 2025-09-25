@@ -10,7 +10,6 @@ namespace Asteroids
 
         public override void InstallBindings()
         {
-            // создаём пустой объект для пуль
             var bulletParent = new GameObject("BulletsContainer").transform;
 
             Container.Bind<BulletFactory>()

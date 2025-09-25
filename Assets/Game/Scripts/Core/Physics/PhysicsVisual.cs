@@ -9,13 +9,11 @@ namespace Asteroids
         public EnemyType Type { get; private set; }
         public Body2D Body { get; private set; }
         private Rigidbody2D _rb;
-        private CircleCollider2D _circleCollider;
 
         public void Init(Body2D body, EnemyType type)
         {
             Type = type;
             Body = body;
-            _circleCollider = GetComponent<CircleCollider2D>();
             _rb = GetComponent<Rigidbody2D>();
             _rb.bodyType = RigidbodyType2D.Kinematic;
         }

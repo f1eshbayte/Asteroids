@@ -76,7 +76,7 @@ namespace Asteroids
             }
 
             ShipBody.ApplyDrag(deltaTime);
-            OnUpdated?.Invoke(); // Всегда обновляем VM
+            OnUpdated?.Invoke(); 
         }
 
 

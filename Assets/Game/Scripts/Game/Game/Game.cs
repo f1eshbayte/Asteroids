@@ -35,10 +35,10 @@ namespace Asteroids
         public void OnRestartButtonClick(GameObject panel)
         {
             _menu.ClosePanel(panel);
-            // _adsManager.ShowAd(() =>
-            // {
+            _adsManager.ShowAd(() =>
+            {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            // });
+            });
         }
 
         public void OnExitButtonClick()
