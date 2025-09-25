@@ -43,23 +43,18 @@ namespace Asteroids
         {
             CollisionResolver.Resolve(ship, target, _asteroidFactory, _asteroidPool, _ufoPool);
             _rewardSystem.AddScore(target.Type);
-            Debug.Log("Score: " + _rewardSystem.TotalScore + "Type: " + target.Type);
-
         }
 
         private void HandleBulletCollision(Bullet bullet, PhysicsVisual target)
         {
             CollisionResolver.Resolve(bullet, target, _asteroidFactory, _asteroidPool, _ufoPool);
             _rewardSystem.AddScore(target.Type);
-            Debug.Log("Score: " + _rewardSystem.TotalScore + "Type: " + target.Type);
-
         }
 
         private void HandleLaserCollision(Laser laser, PhysicsVisual target)
         {
             CollisionResolver.Resolve(laser, target, _asteroidFactory, _asteroidPool, _ufoPool);
             _rewardSystem.AddScore(target.Type);
-            Debug.Log("Score: " + _rewardSystem.TotalScore + "Type: " + target.Type);
         }
 
         private void OnDestroy()

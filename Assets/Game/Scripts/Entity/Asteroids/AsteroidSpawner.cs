@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 using Cysharp.Threading.Tasks;
+using UnityEngine.SceneManagement;
 
 namespace Asteroids
 {
@@ -25,19 +26,52 @@ namespace Asteroids
         {
             SpawnLoop().Forget();
         }
+        
+        private void OnEnable()
+        {
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
+        }
 
+        private void OnDestroy()
+        {
+            SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        }
+
+        private void OnSceneUnloaded(Scene scene)
+        {
+            _pool.Clear(); // при смене сцены сбрасываем ссылки
+        }
+
+        // private async UniTask SpawnLoop()
+        // {
+        //     while (true)
+        //     {
+        //         if (_pool.ActiveCount < _maxActiveAsteroids)
+        //         {
+        //             float speed = Random.Range(_minSpeed, _maxSpeed);
+        //             _factory.SpawnAsteroid(speed);
+        //         }
+        //
+        //         await UniTask.Delay(System.TimeSpan.FromSeconds(_spawnInterval));
+        //     }
+        // }
         private async UniTask SpawnLoop()
         {
-            while (true)
+            while (this != null && gameObject != null) // защита от Destroy
             {
-                if (_pool.ActiveCount < _maxActiveAsteroids)
+                if (_pool != null && _pool.ActiveCount < _maxActiveAsteroids)
                 {
                     float speed = Random.Range(_minSpeed, _maxSpeed);
                     _factory.SpawnAsteroid(speed);
                 }
 
                 await UniTask.Delay(System.TimeSpan.FromSeconds(_spawnInterval));
+
+                // если объект уже уничтожен → выходим
+                if (this == null || gameObject == null) 
+                    break;
             }
         }
+
     }
 }

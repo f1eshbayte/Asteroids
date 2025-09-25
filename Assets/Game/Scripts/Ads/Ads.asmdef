@@ -1,0 +1,16 @@
+{
+    "name": "Ads",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3f477071d753ad348b273fda0f7938b6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

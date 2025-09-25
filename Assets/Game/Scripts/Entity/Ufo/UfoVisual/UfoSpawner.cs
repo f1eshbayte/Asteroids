@@ -30,15 +30,18 @@ namespace Asteroids
 
         private async UniTask SpawnLoop()
         {
-            while (true)
+            while (this != null && gameObject != null) // защита от Destroy
             {
-                if (_pool.ActiveCount < _maxActiveUfos)
+                if (_pool != null && _pool.ActiveCount < _maxActiveUfos)
                 {
                     _factory.SpawnAtEdge(_ufoSpeed, _ship);
                 }
 
                 float wait = Random.Range(_minInterval, _maxInterval);
                 await UniTask.Delay(System.TimeSpan.FromSeconds(wait));
+                
+                if (this == null || gameObject == null) 
+                    break;
             }
         }
     }

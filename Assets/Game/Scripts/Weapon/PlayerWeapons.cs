@@ -3,55 +3,83 @@ using Zenject;
 
 namespace Asteroids
 {
-    public class PlayerWeapons : MonoBehaviour
+    public class PlayerWeapons : MonoBehaviour, IPausable
     {
-        // [SerializeField] private float _bulletSpeed = 15f;
         [SerializeField] private Transform _shootPoint;
-        // [SerializeField] private int _maxLaserShots = 3;
-        // [SerializeField] private float _laserLifetime = 0.3f;
-        // [SerializeField] private float _laserRechargeTime = 5f;
 
         private ShipConfig _config;
         private BulletPool _bulletPool;
         private LaserPool _laserPool;
         private ShipPresentation _ship;
         private PhysicsWorld _world;
+        private IShipInput _input;
+        private SignalBus _signalBus;
 
         private int _currentLaserShots;
         private float _rechargeTimer;
+        private bool _isPaused;
             
         [Inject]
-        public void Construct(BulletPool bulletPool, LaserPool laserPool, ShipPresentation ship, PhysicsWorld world, ShipConfig config)
+        public void Construct(BulletPool bulletPool, LaserPool laserPool, 
+            ShipPresentation ship, PhysicsWorld world, ShipConfig config, IShipInput input, SignalBus signalBus)
         {
+            _input = input;
             _config = config;
             _bulletPool = bulletPool;
             _laserPool = laserPool;
             _ship = ship;
             _world = world;
+            _signalBus = signalBus;
             
-            // _currentLaserShots = _maxLaserShots;
             _currentLaserShots = _config.maxLaserShots;
         }
 
+        private void OnEnable()
+        {
+            _signalBus.Subscribe<PauseChangedSignal>(OnPauseChanged);
+            // PauseManager.Register(this);
+        }
+
+        private void OnDisable()
+        {
+            _signalBus.Unsubscribe<PauseChangedSignal>(OnPauseChanged);
+            
+            // PauseManager.Unregister(this);
+        }
+
+        // private void Update()
+        // {
+        //     if (_ship.IsDie || _isPaused)
+        //         return;
+        //
+        //     if (Input.GetKeyDown(KeyCode.Space))
+        //     {
+        //         FireBullet();
+        //     }
+        //
+        //     if (Input.GetKeyDown(KeyCode.LeftControl) && _currentLaserShots > 0)
+        //     {
+        //         FireLaser();
+        //     }
+        //
+        //     if (_currentLaserShots < _config.maxLaserShots)
+        //     {
+        //         ChargeRecovery();
+        //     }
+        // }
         private void Update()
         {
-            if (_ship.IsDie)
+            if (_ship.IsDie || _isPaused)
                 return;
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
+        
+            if (_input.FireBullet)
                 FireBullet();
-            }
-
-            if (Input.GetKeyDown(KeyCode.LeftControl) && _currentLaserShots > 0)
-            {
+        
+            if (_input.FireLaser && _currentLaserShots > 0)
                 FireLaser();
-            }
-
+        
             if (_currentLaserShots < _config.maxLaserShots)
-            {
                 ChargeRecovery();
-            }
         }
 
         private void FireBullet()
@@ -81,6 +109,11 @@ namespace Asteroids
             laser.transform.SetParent(_ship.transform, false);
             laser.transform.localPosition = _shootPoint.localPosition;
             laser.transform.localRotation = Quaternion.identity;
+        }
+
+        public void OnPauseChanged(PauseChangedSignal signal)
+        {
+            _isPaused = signal.IsPaused;
         }
     }
 }

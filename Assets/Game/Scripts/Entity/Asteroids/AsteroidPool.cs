@@ -13,7 +13,8 @@ namespace Asteroids
         private readonly AsteroidPresentation _prefabSmallAsteroid;
         private readonly DiContainer _container;
         private readonly PhysicsWorld _world;
-        public int ActiveCount => _pool.Count(a => a.gameObject.activeSelf);
+        // public int ActiveCount => _pool.Count(a => a.gameObject.activeSelf);
+        public int ActiveCount => _pool.Count(a => a != null && a.gameObject.activeSelf);
 
         public AsteroidPool(AsteroidPresentation prefabAsteroid, AsteroidPresentation prefabBigAsteroid, AsteroidPresentation prefabSmallAsteroid,
             int initialSize, DiContainer container, PhysicsWorld world)
@@ -86,6 +87,16 @@ namespace Asteroids
         public void Release(AsteroidPresentation asteroid)
         {
             asteroid.Deactivate();
+        }
+
+        public void Clear()
+        {
+            foreach (var asteroid in _pool)
+            {
+                if (asteroid != null)
+                    Object.Destroy(asteroid.gameObject);
+            }
+            _pool.Clear();
         }
     }
 }

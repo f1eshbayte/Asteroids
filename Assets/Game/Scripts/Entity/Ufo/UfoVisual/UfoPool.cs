@@ -12,7 +12,8 @@ namespace Asteroids
         private readonly DiContainer _container;
         private readonly PhysicsWorld _world;
 
-        public int ActiveCount => _pool.Count(p => p.gameObject.activeSelf);
+        public int ActiveCount => _pool.Count(p => p != null && p.gameObject != null && p.gameObject.activeSelf);
+
 
         [Inject]
         public UfoPool(UfoPresentation prefab, int initialSize, DiContainer container, PhysicsWorld world)

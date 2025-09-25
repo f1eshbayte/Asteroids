@@ -8,6 +8,9 @@ namespace Asteroids
 
         public override void InstallBindings()
         {
+            SignalBusInstaller.Install(Container);
+            Container.DeclareSignal<PauseChangedSignal>();
+            
             Container.BindInterfacesAndSelfTo<PhysicsWorld>().AsSingle()
                 .OnInstantiated<PhysicsWorld>((ctx, world) => { world.SetWorldSize(_config.worldWidth, _config.worldHeight); });
             Container.Bind<RewardSystem>().FromInstance(new RewardSystem()).AsSingle();

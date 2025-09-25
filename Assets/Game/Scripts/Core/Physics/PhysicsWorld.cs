@@ -4,10 +4,11 @@ using Zenject;
 
 namespace Asteroids
 {
-    public class PhysicsWorld : ITickable, IFixedTickable
+    public class PhysicsWorld : ITickable, IFixedTickable, IPausable
     {
         private readonly List<Body2D> _bodies = new();
         private readonly List<PhysicsVisual> _physicsVisuals = new();
+        private bool _isPaused;
 
         // публичные настройки карты (можно менять в инспекторе через Installer)
         public float Width { get; private set; } = 1000f;
@@ -45,6 +46,10 @@ namespace Asteroids
 
         public void FixedTick()
         {
+            if (_isPaused)
+            {
+                return;
+            }
             float fixedDeltaTime = Time.fixedDeltaTime;
 
             foreach (var body in _bodies)
@@ -69,10 +74,19 @@ namespace Asteroids
 
         public void Tick()
         {
+            if (_isPaused)
+            {
+                return;
+            }
             foreach (var visual in _physicsVisuals)
             {
                 visual.SyncTransform();
             }
+        }
+
+        public void OnPauseChanged(PauseChangedSignal signal)
+        {
+            _isPaused = signal.IsPaused;
         }
     }
 }

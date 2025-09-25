@@ -1,0 +1,20 @@
+{
+    "name": "Boot",
+    "rootNamespace": "",
+    "references": [
+        "GUID:158fcc46acb880d408b01ddd5f3fd087",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:3b89c9f2650f3d345905c91344ed11fd",
+        "GUID:5588c27bfe6bf214090e99fa5b4b281b",
+        "GUID:d28a6c694a447f849875b6d72d739f69"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

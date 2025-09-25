@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
 namespace Asteroids
 {
-    public class ParticleHitEffectPool
+    public class ParticleHitEffectPool : IPausable
     {
         private readonly List<ParticleSystem> _pool = new();
         private readonly ParticleHitEffectFactory _factory;
+
+        private SignalBus _signalBus;
         
-        public ParticleHitEffectPool(ParticleHitEffectFactory factory, int initialSize)
+        private bool _isPaused;
+        
+        public ParticleHitEffectPool(ParticleHitEffectFactory factory, int initialSize, SignalBus signalBus)
         {
             _factory = factory;
+            _signalBus = signalBus;
 
             for (int i = 0; i < initialSize; i++)
             {
@@ -34,9 +40,9 @@ namespace Asteroids
 
             effect.transform.position = position;
             effect.gameObject.SetActive(true);
-            effect.Play();
+            if (!_isPaused)
+                effect.Play();
 
-            // var duration = effect.main.duration + effect.main.startLifetime.constantMax;
             var duration = effect.main.startLifetime.constantMax;
             ReturnToPool(effect, duration);
 
@@ -45,10 +51,27 @@ namespace Asteroids
 
         private async UniTask ReturnToPool(ParticleSystem effect, float delay)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(delay));
-            effect.Stop();
-            effect.gameObject.SetActive(false);
+            await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: effect.GetCancellationTokenOnDestroy());
             
+            if (effect != null) // на всякий случай
+            {
+                effect.Stop();
+                effect.gameObject.SetActive(false);
+            }
+            
+        }
+
+        public void OnPauseChanged(PauseChangedSignal signal)
+        {
+            _isPaused = signal.IsPaused;
+            foreach (var ps in _pool)
+            {
+                if (ps == null) continue;
+                if (_isPaused)
+                    ps.Pause();
+                else if (ps.gameObject.activeSelf)
+                    ps.Play();
+            }
         }
     }
 }

@@ -3,27 +3,49 @@ using Zenject;
 
 namespace Asteroids
 {
-    public class UfoPresentation : PhysicsVisual
+    public class UfoPresentation : PhysicsVisual, IPausable
     {
         [SerializeField] private EnemyType _type;
 
         private UfoConfig _config;
         private PhysicsWorld _world;
         private Ship _target;
+        private SignalBus _signalBus;
         
         public Ufo UfoBody { get; private set; }
      
         [Inject]
-        public void Construct(PhysicsWorld world, Ship target, UfoConfig config)
+        public void Construct(PhysicsWorld world, Ship target, UfoConfig config, SignalBus signalBus)
         {
             _world = world;
             _target = target;
             _config = config;
+            _signalBus = signalBus;
+        }
+
+        private bool _isPaused;
+
+        // private void OnEnable()
+        // {
+        //     PauseManager.Register(this);
+        // }
+        private void OnEnable()
+        {
+            _signalBus.Subscribe<PauseChangedSignal>(OnPauseChanged);
+        }
+
+        // private void OnDisable()
+        // {
+        //     PauseManager.Unregister(this);
+        // }
+        private void OnDisable()
+        {
+            _signalBus.Unsubscribe<PauseChangedSignal>(OnPauseChanged);
         }
 
         private void FixedUpdate()
         {
-            if (UfoBody == null || _target == null || !gameObject.activeSelf)
+            if (_isPaused || UfoBody == null || _target == null || !gameObject.activeSelf)
                 return;
             
             Vector2 toTarget = _target.Position - UfoBody.Position;
@@ -42,6 +64,12 @@ namespace Asteroids
                 _config.steerStrength * Time.fixedDeltaTime
             );
         }
+
+        public void OnPauseChanged(PauseChangedSignal signal)
+        {
+            _isPaused = signal.IsPaused;
+        }
+
         
         public void Activate(Vector2 position, float speed, Ship target)
         {
